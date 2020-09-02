@@ -1,11 +1,17 @@
 {
-    "name": "Alert 'hello world!' on page opening",
+    "name": "Stolaf Rate My Professor",
+    "description": "See the professors rating on rate my professor directly in SIS's \"Class & Lab Schedule\" tab. ( https://sis.stolaf.edu/sis/public-aclasslab.cfm?yearterm=20201 )",
     "version": "1.0",
     "manifest_version": 2,
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["professors.js", "elements.js", "content.js"]
+            "js": ["professors.js", "unMatchedProfessors.js", "content.js"]
         }
-    ]
+    ],
+    "icons": {
+        "16": "stolaf16.png",
+        "48": "stolaf48.png",
+        "128": "stolaf128.png"
+    }
 }

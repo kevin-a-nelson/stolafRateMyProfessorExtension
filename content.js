@@ -22,19 +22,14 @@ const elementsWithProfessorNames = () => {
     });
 };
 
-const UNMATCHED_PROFESSORS = {
-    LOL: "nice",
-};
-
 const mapUnmatchedProfessors = () => {
     if (UNMATCHED_PROFESSORS[professor]) {
-        professor = UNMATCHED_PROFESSORS[professor];
+        return (professor = UNMATCHED_PROFESSORS[professor]);
     }
+    return "not found";
 };
 
-const displayProfessorRatings = () => {
-    let unMatchedProfs = {};
-
+const insertProfessorRatings = () => {
     const elementsWithLinks = document.getElementsByClassName(
         "sis-nounderline"
     );
@@ -47,10 +42,13 @@ const displayProfessorRatings = () => {
 
     for (let i = 0; i < elementsWithProfessorNames.length; i++) {
         let professor = elementsWithProfessorNames[i].innerText;
+
         professor = formatProfessor(professor);
 
         if (!RATE_MY_PROFESSOR_DATA[professor]) {
+            professor = UNMATCHED_PROFESSORS[professor] || professor;
         }
+
         if (RATE_MY_PROFESSOR_DATA[professor]) {
             elementsWithProfessorNames[
                 i
@@ -59,8 +57,6 @@ const displayProfessorRatings = () => {
                 i
             ].href = `https://www.ratemyprofessors.com/ShowRatings.jsp?tid=${RATE_MY_PROFESSOR_DATA[professor].id}`;
             elementsWithProfessorNames[i].target = "_blank";
-        } else {
-            unMatchedProfs[professor] = "";
         }
     }
 };
@@ -69,10 +65,15 @@ const SEARCH_BUTTON = document.getElementsByName("searchbutton")[0];
 
 const onSearchButtonClick = () => {
     const coursesAreLoaded = () => {
+        paragraphElement.innerText = "Loading Professors Ratings ...";
+        paragraphElement.className = "sis-flash sis-flash-primary";
         if (!SEARCH_BUTTON.disabled) {
+            paragraphElement.className = "sis-flash sis-flash-success";
+            paragraphElement.innerText =
+                "Professors ratings succesfully Loaded! Email nelson67@stolaf.edu to report an issue, Thanks!";
             // Stop checking if courses are loaded when courses are loaded
             clearInterval(coursesAreLoadedInterval);
-            displayProfessorRatings();
+            insertProfessorRatings();
         }
     };
 
@@ -81,3 +82,9 @@ const onSearchButtonClick = () => {
 };
 
 SEARCH_BUTTON.addEventListener("click", onSearchButtonClick);
+
+const form = document.getElementsByTagName("form")[0];
+const paragraphElement = document.createElement("P");
+const paragraphTextNode = document.createTextNode("");
+paragraphElement.appendChild(paragraphTextNode);
+form.appendChild(paragraphElement);
