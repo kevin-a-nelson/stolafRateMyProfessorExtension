@@ -64,13 +64,14 @@ const insertProfessorRatings = () => {
 const SEARCH_BUTTON = document.getElementsByName("searchbutton")[0];
 
 const onSearchButtonClick = () => {
+    let intervals = 0;
     const coursesAreLoaded = () => {
         paragraphElement.innerText = "Loading Professors Ratings ...";
         paragraphElement.className = "sis-flash sis-flash-primary";
         if (!SEARCH_BUTTON.disabled) {
             paragraphElement.className = "sis-flash sis-flash-success";
             paragraphElement.innerText =
-                "Professors ratings succesfully Loaded! Email nelson67@stolaf.edu to report an issue, Thanks!";
+                "Success! Click on an instructor to go to their rate my professor page!";
             // Stop checking if courses are loaded when courses are loaded
             clearInterval(coursesAreLoadedInterval);
             insertProfessorRatings();
