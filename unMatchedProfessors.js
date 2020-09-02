@@ -14,13 +14,13 @@ const UNMATCHED_PROFESSORS = {
     "Chapp, Christopher": "Chapp, Chris",
     "Christie, Sian": "",
     "Clifton, Sara": "",
-    "Coughlin, Jenna": "",
+    "Coughlin, Jenna": "", //
     "Davila, Jaime": "",
     "DeFries, Brett": "",
     "Dulkin, Ryan": "",
     "Eichberger, Ryan": "",
     "Elsaesser, Carl": "",
-    "Engleman, Tracey": "",
+    "Engleman, Tracey": "", //
     "Frary, Whitney": "",
     "Fyfe, Charles": "",
     "Garner, Leigh": "",
