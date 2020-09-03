@@ -40,20 +40,53 @@ const insertProfessorRatings = () => {
     }
 };
 
+const coursesFound = () => {
+    const results = document.getElementById("results");
+    const resultsText = results.innerText;
+    return !resultsText.includes("No classes found");
+};
+
 const SEARCH_BUTTON = document.getElementsByName("searchbutton")[0];
+
+// init message
+const form = document.getElementsByTagName("form")[0];
+const paragraphElement = document.createElement("P");
+const paragraphTextNode = document.createTextNode("");
+paragraphElement.appendChild(paragraphTextNode);
+form.appendChild(paragraphElement);
+
+const setMessageToLoading = () => {
+    paragraphElement.innerText = "Loading Professor's Ratings ...";
+    paragraphElement.className = "sis-flash sis-flash-primary";
+};
+
+const setMessageToSuccess = () => {
+    paragraphElement.className = "sis-flash sis-flash-success";
+    paragraphElement.innerText =
+        "Success! Click on an professor to go to their rate my professor page!";
+    const elementsWithLinks = document.getElementsByClassName(
+        "sis-nounderline"
+    );
+};
+
+const setMessageToNothing = () => {
+    paragraphElement.className = "";
+    paragraphElement.innerText = "";
+};
 
 const onSearchButtonClick = () => {
     let intervals = 0;
     const coursesAreLoaded = () => {
-        paragraphElement.innerText = "Loading Professor's Ratings ...";
-        paragraphElement.className = "sis-flash sis-flash-primary";
+        setMessageToLoading();
         if (!SEARCH_BUTTON.disabled) {
-            paragraphElement.className = "sis-flash sis-flash-success";
-            paragraphElement.innerText =
-                "Success! Click on an professor to go to their rate my professor page!";
+            if (coursesFound()) {
+                setMessageToSuccess();
+                insertProfessorRatings();
+            } else {
+                setMessageToNothing();
+            }
             // Stop checking if courses are loaded when courses are loaded
             clearInterval(coursesAreLoadedInterval);
-            insertProfessorRatings();
         }
     };
 
@@ -62,9 +95,3 @@ const onSearchButtonClick = () => {
 };
 
 SEARCH_BUTTON.addEventListener("click", onSearchButtonClick);
-
-const form = document.getElementsByTagName("form")[0];
-const paragraphElement = document.createElement("P");
-const paragraphTextNode = document.createTextNode("");
-paragraphElement.appendChild(paragraphTextNode);
-form.appendChild(paragraphElement);
