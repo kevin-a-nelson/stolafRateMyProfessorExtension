@@ -1,7 +1,3 @@
-function isProfName(name) {
-    return name.includes(",");
-}
-
 function formatProfessor(professor) {
     let splitProfessor = professor.split(" ");
     if (splitProfessor.length === 3) {
@@ -11,23 +7,6 @@ function formatProfessor(professor) {
     }
     return professor;
 }
-
-const elementsWithProfessorNames = () => {
-    const elementsWithClassName = document.getElementsByClassName(
-        "sis-nounderline"
-    );
-
-    return Array.from(elementsWithClassName).filter((professor) => {
-        professor.includes(",");
-    });
-};
-
-const mapUnmatchedProfessors = () => {
-    if (UNMATCHED_PROFESSORS[professor]) {
-        return (professor = UNMATCHED_PROFESSORS[professor]);
-    }
-    return "not found";
-};
 
 const insertProfessorRatings = () => {
     const elementsWithLinks = document.getElementsByClassName(
@@ -66,12 +45,12 @@ const SEARCH_BUTTON = document.getElementsByName("searchbutton")[0];
 const onSearchButtonClick = () => {
     let intervals = 0;
     const coursesAreLoaded = () => {
-        paragraphElement.innerText = "Loading Professors Ratings ...";
+        paragraphElement.innerText = "Loading Professor's Ratings ...";
         paragraphElement.className = "sis-flash sis-flash-primary";
         if (!SEARCH_BUTTON.disabled) {
             paragraphElement.className = "sis-flash sis-flash-success";
             paragraphElement.innerText =
-                "Success! Click on an instructor to go to their rate my professor page!";
+                "Success! Click on an professor to go to their rate my professor page!";
             // Stop checking if courses are loaded when courses are loaded
             clearInterval(coursesAreLoadedInterval);
             insertProfessorRatings();
